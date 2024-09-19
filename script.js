@@ -1,3 +1,36 @@
+function FullNav() {
+  let menuBtn = document.querySelector("#bar");
+  let fullNav = document.querySelector("#full-nav");
+  let open = document.querySelector("nav .right .menu-cart .toggles .open");
+  let close = document.querySelector("nav .right .menu-cart .toggles .close");
+  let logo1 = document.querySelector("nav svg:first-child");
+  let logo2 = document.querySelector("nav svg:last-child");
+
+  gsap.from("#full-nav .links a", {
+    transform: "translateY(200px)",
+    stagger: 0.1,
+  });
+
+  menuBtn.addEventListener("click", () => {
+    fullNav.style.top = 0;
+    open.style.display = "none";
+    close.style.display = "flex";
+    logo1.style.color = "#fff";
+    logo1.style.zIndex = 9;
+    logo2.style.color = "#fff";
+    logo2.style.zIndex = 9;
+  });
+
+  close.addEventListener("click", () => {
+    fullNav.style.top = "-100%";
+    open.style.display = "flex";
+
+    logo1.style.color = "#000";
+    logo2.style.color = "#000";
+    close.style.display = "none";
+  });
+}
+
 // Locomotive Scrollriger JS
 function LocomotiveScrollTriger() {
   gsap.registerPlugin(ScrollTrigger);
@@ -133,6 +166,7 @@ function TextAnimation() {
   let tl = gsap.timeline();
   let first = document.querySelector("#first");
   let second = document.querySelector("#second");
+
   tl.from("nav .left svg:first-child", {
     transform: "translateY(-100px)",
   });
@@ -142,9 +176,12 @@ function TextAnimation() {
     stagger: 0.1,
   });
 
+  tl.from("nav .toggles", {
+    transform: "translateY(-100px)",
+  });
+
   tl.from("nav .menu-cart i", {
     transform: "translateY(-100px)",
-    stagger: 0.1,
   });
 
   tl.from(first, {
@@ -163,6 +200,7 @@ function TextAnimation() {
 } // end of landing text animation
 
 LocomotiveScrollTriger();
+FullNav();
 NavScrollAnimation();
 VideoPlayButtonAnimationInit();
 TextAnimation();
