@@ -104,6 +104,45 @@ function NavScrollAnimation() {
 function CursorInit() {
   let listContainer = document.querySelectorAll("#product-list .list");
   let cursor = document.querySelector("#cursor");
+  let videoContainer = document.querySelector("#video-container");
+  let video = document.querySelector("video");
+
+  videoContainer.addEventListener("click", () => {
+    video.muted = false;
+    video.controls = true;
+    cursor.style.display = "none";
+  });
+
+  videoContainer.addEventListener("mouseenter", () => {
+    cursor.style.height = "7rem";
+    cursor.style.width = "7rem";
+    cursor.style.backgroundColor = "#000";
+    cursor.style.zIndex = 1;
+    cursor.innerHTML = "PLAY";
+    gsap.to(cursor, {
+      transform: "translate(-50%, -50%) scale(1)",
+    });
+  });
+
+  videoContainer.addEventListener("mousemove", (event) => {
+    gsap.to(cursor, {
+      left: event.x,
+      top: event.y,
+    });
+  });
+
+  videoContainer.addEventListener("mouseleave", () => {
+    cursor.style.height = "15rem";
+    cursor.style.width = "15rem";
+    cursor.style.zIndex = 0;
+    cursor.innerHTML = "";
+    cursor.style.backgroundColor = "rgb(253, 239, 207)";
+    video.controls = false;
+    cursor.style.display = "flex";
+    gsap.to(cursor, {
+      transform: "translate(-50%, -50%) scale(0)",
+    });
+  });
 
   listContainer.forEach((list) => {
     list.addEventListener("mouseenter", () => {
@@ -128,15 +167,13 @@ function CursorInit() {
 // Play button animation begin
 function VideoPlayButtonAnimationInit() {
   let playBtn = document.querySelector("#play");
-  let videoContainer = document.querySelector("#video-container");
+  let videoContainer = document.querySelector("video");
 
   videoContainer.addEventListener("mouseenter", () => {
     //   playBtn.style.opacity = 1;
     //   playBtn.style.scale = 1;
     gsap.to(playBtn, {
       transform: "translate(-50%, -50%) scale(1)",
-      opacity: 1,
-      duration: 0.5,
     });
   });
 
@@ -146,7 +183,6 @@ function VideoPlayButtonAnimationInit() {
     gsap.to(playBtn, {
       left: event.x,
       top: event.y,
-      duration: 0.5,
     });
   });
 
@@ -155,8 +191,6 @@ function VideoPlayButtonAnimationInit() {
     //   playBtn.style.scale = 0;
     gsap.to(playBtn, {
       transform: "translate(-50%, -50%) scale(0)",
-      opacity: 0,
-      duration: 0.5,
     });
   });
 } // end of Play button animation
