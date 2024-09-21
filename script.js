@@ -6,11 +6,6 @@ function FullNav() {
   let logo1 = document.querySelector("nav svg:first-child");
   let logo2 = document.querySelector("nav svg:last-child");
 
-  gsap.from("#full-nav .links a", {
-    transform: "translateY(200px)",
-    stagger: 0.1,
-  });
-
   menuBtn.addEventListener("click", () => {
     fullNav.style.top = 0;
     open.style.display = "none";
@@ -19,6 +14,22 @@ function FullNav() {
     logo1.style.zIndex = 9;
     logo2.style.color = "#fff";
     logo2.style.zIndex = 9;
+
+    let tl = gsap.timeline();
+    tl.from("#full-nav .links a", {
+      y: 70,
+      opacity: 0,
+      stagger: 0.1,
+    });
+
+    tl.from(
+      "#full-nav .connect , #full-nav .connect .socials a, #full-nav .nitty, #full-nav .nitty .faqs a",
+      {
+        y: 10,
+        opacity: 0,
+        stagger: 0.1,
+      }
+    );
   });
 
   close.addEventListener("click", () => {
